@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "3f35e076-ee3e-4d26-b15f-26481ae658db",
+		"name": "Vivino Car Rental",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List Available Cars",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"date_from\": \"2006-01-02T12:00:00.000Z\",\r\n    \"date_to\": \"2006-01-03T12:00:00.000Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api}}/cars",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Booking",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"date_from\": \"2006-01-02T12:00:00.000Z\",\r\n    \"date_to\": \"2006-01-03T12:00:00.000Z\",\r\n    \"car_id\": \"78eeeb90-b6b9-4488-891c-17184dd8ede8\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api}}/bookings",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"bookings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Booking",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api}}/bookings/201a9cdd-2d09-485f-baac-9c2f2ebfb420",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"bookings",
+						"201a9cdd-2d09-485f-baac-9c2f2ebfb420"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Booking",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{api}}/bookings/b6513b1c-5540-49b9-88d4-8201e5e61e96/8921024c-6c6c-46d8-bf35-3c2e1f891049",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"bookings",
+						"b6513b1c-5540-49b9-88d4-8201e5e61e96",
+						"8921024c-6c6c-46d8-bf35-3c2e1f891049"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "port",
+			"value": "80"
+		},
+		{
+			"key": "domain",
+			"value": "localhost"
+		},
+		{
+			"key": "host",
+			"value": "{{domain}}:{{port}}"
+		},
+		{
+			"key": "api",
+			"value": "{{host}}/api/v1"
+		}
+	]
+}

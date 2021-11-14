@@ -1,0 +1,75 @@
+version: '3'
+
+services:
+
+  server:
+    image: nginx:alpine
+    container_name: cr-server
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./server/nginx-conf:/etc/nginx/conf.d
+    networks:
+      - app-network
+    depends_on:
+      - app
+
+  app:
+    build: ./app/
+    image: cr-app
+    container_name: cr-app
+    restart: always
+    ports:
+      - "2000:2000"
+    volumes:
+      - ./app:/go/src/cr
+    environment:
+      - PORT=2000
+    networks:
+      - app-network
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: mariadb
+    container_name: cr-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: rental_api
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/data/db
+      - ./db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      - app-network
+
+  redis:
+    image: redis:alpine
+    container_name: cr-redis
+    volumes:
+      - ./redis/conf:/usr/local/etc/redis
+    networks:
+      - app-network
+
+  adminer:
+    image: adminer
+    container_name: cr-adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  dbdata:
